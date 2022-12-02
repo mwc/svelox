@@ -1,6 +1,6 @@
 # svelox
 
-Language: [English](./README.md) | [简体中文](./README-zh.md)
+Language: [English](https://github.com/mwc/svelox/README.md) | [简体中文](https://github.com/mwc/svelox/README-zh.md)
 
 ## 什么是 svelox？
 
@@ -69,6 +69,8 @@ let arr = sx([1, 2, 3], (n) => arr = n)
 <h4>sum = {numbers.reduce((s, c) => (s += c), 0)}</h4>
 ```
 
+[点击此处](https://svelte.dev/repl/0dedb37665014ba99e05415a6107bc21?version=3.53.1)在 Svelte REPL 查看该示例。
+
 你可以看到，使用 `push` 后并不需要再写一句 `numbers = numbers` 之类的赋值语句。
 
 数组会默认劫持下列函数，你无需提供：
@@ -90,15 +92,17 @@ let arr = sx([1, 2, 3], (n) => arr = n)
 - 调用 `sx(...)` 函数后，原对象已被 `Proxy` 包裹作为返回值返回。
 - 所有对象均会添加一个 `reset` 方法，用于重置对象的值。
 - 如果对象为 `数组` 类型，则另外增加两个方法：`remove(index)` 用于更便捷地删除指定索引的元素，等同代码是 `splice(index, 1)`，以及 `clear()` 清空数组。
-- 你 `不` 应该让指定在 `methods` 内的方法相互调用，这可能会引起死循环。或者在插值表达式中不应该使用添加在 `methods` 中的方法，也会引起死循环。例如，如果将数组的 `reduce()` 方法添加到 `methods` 列表中：
+- 你 `不` 应该让指定在 `methods` 内的方法相互调用，这可能会引起死循环。或者在插值表达式中不应该使用添加在 `methods` 中的方法，也会引起死循环。例如，下方示例如果将数组的 `reduce()` 方法添加到 `methods` 列表中，这将引起死循环：
 ```html
 <script>
+    import { sx } from "svelox"
 
+    let numbers = sx([1, 2, 3], (n) => (numbers = n), ['reduce'])
 </script>
 
 <h4>sum = {numbers.reduce((s, c) => (s += c), 0)}</h4>
 ```
-
+上述代码中，已在插值表达式中使用 `numbers.reduce` 来计算数组总和，但是同时将 `reduce` 方法添加到 `methods` 列表中，这将导致 `numbers.reduce` 被调用时，自动执行一次 `updater` 方法，也即 `(n) => (numbers = n)`，这使得 `numbers` 被视为脏值，让下方的 `numbers.reduce` 再次执行，如此重复。
 
 ## 贡献者
 
@@ -107,6 +111,6 @@ let arr = sx([1, 2, 3], (n) => arr = n)
 
 ## License
 
-[MIT](./license) License (MIT)
+[MIT](https://github.com/mwc/svelox/license) License (MIT)
 
 Copyright (c) 2022-present, mwc@foxmail.com
