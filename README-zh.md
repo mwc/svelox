@@ -104,6 +104,14 @@ let arr = sx([1, 2, 3], (n) => arr = n)
 ```
 上述代码中，已在插值表达式中使用 `numbers.reduce` 来计算数组总和，但是同时将 `reduce` 方法添加到 `methods` 列表中，这将导致 `numbers.reduce` 被调用时，自动执行一次 `updater` 方法，也即 `(n) => (numbers = n)`，这使得 `numbers` 被视为脏值，让下方的 `numbers.reduce` 再次执行，如此重复。
 
+
+## 谁需要 svelox？
+- 如果你想将旧有代码迁移到 Svelte，例如 `Vue`，因为它们默认都使用了 `push` 来向数组添加新项，这种情况下，你难以一个一个地去查找并为其编写一句重新赋值语句。
+这个时候 svelox 可以提供有效的帮助，节省大量的时间。
+
+- 有时候确实使用 Array 原生的 APIs 时的代码会比重新赋值的代码要短，例如移除一个元素 `arr.splice(index, 1)`，要比 `arr = [...arr.slice(0, index), ...arr.slice(index + 1)]` 要短，认同吗？
+
+
 ## 贡献者
 
 [mwc](https://github.com/mwc),

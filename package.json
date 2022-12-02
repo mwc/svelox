@@ -1,5 +1,6 @@
 {
 	"name": "svelox",
+	"version": "0.0.3",
 	"description": "Make Svelte's reactivity compatible with object APIs.",
 	"keywords": [
 		"svelox",
@@ -8,7 +9,14 @@
 		"push",
 		"splice"
 	],
-	"version": "0.0.2",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/mwc/svelox.git"
+	},
+	"bugs": {
+		"url": "https://github.com/mwc/svelox/issues"
+	},
+	"homepage": "https://github.com/mwc/svelox",
 	"author": {
 		"name": "mwc",
 		"url": "https://github.com/mwc"
