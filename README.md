@@ -1,3 +1,5 @@
+# In Svelte 5, you don't need this anymore, it's built in.
+
 # svelox
 
 Language: [English](https://github.com/mwc/svelox/README.md) | [简体中文](https://github.com/mwc/svelox/README-zh.md)
